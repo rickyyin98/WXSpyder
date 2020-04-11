@@ -13,14 +13,16 @@ def WriteExcel(List,Name,SmallName):
     workbook.save(Name)
 
 Type=["情感励志","搞笑趣闻","娱乐","旅游","运动","医疗健康","数码科技","汽车","餐饮美食","时尚","房产","母婴","生活常识","时事资讯","政务","财经","地方","职场教育","早教幼教","小学教育","中学教育","大学校园"]
+Num=[35,27,31,97,1500,29,30,28,32,33,128,36,1434,26,39952,1443,37,34,42084,42095,42086,39953]
+
 InUse=[]
-for type in Type:
-    print("正在",type)
+for n in range(0,len(Type)):
+    print("正在",Type[n])
     All=[]
     for i in range(1,9):
         try:
             Final=[]
-            url='https://zs.xiguaji.com/BizRank/{}/35/2020040{}'.format(type,i)
+            url='https://zs.xiguaji.com/BizRank/{}/{}/2020040{}'.format(Type[n],Num[n],i)
             resp = requests.get(url)
             a = resp.content.decode('utf-8')
             soup = BeautifulSoup(a)
@@ -35,7 +37,7 @@ for type in Type:
         for j in range(0,len(All)):
             if All[j]==Deduplication[i]:
                 N=N+1
-        InUse.append([Deduplication[i],N,type])
+        InUse.append([Deduplication[i],N,Type[n]])
 
 print(InUse)
 WriteExcel(InUse,"4月超优质公众号.xls",'公众号')
